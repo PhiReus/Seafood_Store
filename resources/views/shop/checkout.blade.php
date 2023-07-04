@@ -33,9 +33,9 @@
                             value="{{ Auth()->guard('customers')->user()->address }}" id="user_address"
                                             placeholder="">
                         </div>
-                        <button type="submit" class="btn btn-block btn-primary font-weight-bold py-3">Đặt hàng</button>
+                        <button type="submit" class="btn btn-block btn-outline-success font-weight-bold py-3">Đặt hàng</button>
                         @else
-                            <h4>Vui lòng đăng nhập trước khi thanh toán nhé</h4>
+                            <h4>Vui lòng đăng nhập trước khi thanh toán</h4>
                             <a href="{{ route('shop.login') }}" class="btn btn-danger">Đăng Nhập</a>
                             @endif
                         @php
@@ -61,7 +61,7 @@
                         <h6 class="mb-3">Sản phẩm</h6>
                         <div class="d-flex justify-content-between">
                             <p> <input type="hidden" value="{{ $id }}"
-                                name="product_id[]">{{ $details['nameVi'] ?? '' }}
+                                name="product_id[]">{{ $details['name'] ?? '' }}
                                </p>
                                 </td>
                                 <input type="hidden" value="{{ $details['quantity'] }}"

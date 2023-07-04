@@ -9,23 +9,10 @@
             <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light"
                 id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
                 <div class="navbar-nav w-100">
-                    {{-- <div class="nav-item dropdown dropright">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Dresses <i class="fa fa-angle-right float-right mt-1"></i></a>
-                        <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
-                            <a href="" class="dropdown-item">Men's Dresses</a>
-                            <a href="" class="dropdown-item">Women's Dresses</a>
-                            <a href="" class="dropdown-item">Baby's Dresses</a>
-                        </div>
-                    </div> --}}
-                    <a href="" class="nav-item nav-link">Shirts</a>
-                    <a href="" class="nav-item nav-link">Jeans</a>
-                    <a href="" class="nav-item nav-link">Swimwear</a>
-                    <a href="" class="nav-item nav-link">Sleepwear</a>
-                    <a href="" class="nav-item nav-link">Sportswear</a>
-                    <a href="" class="nav-item nav-link">Jumpsuits</a>
-                    <a href="" class="nav-item nav-link">Blazers</a>
-                    <a href="" class="nav-item nav-link">Jackets</a>
-                    <a href="" class="nav-item nav-link">Shoes</a>
+                    <a href="" class="nav-item nav-link">Tôm</a>
+                    <a href="" class="nav-item nav-link">Cua</a>
+                    <a href="" class="nav-item nav-link">Cá</a>
+                    <a href="" class="nav-item nav-link">Mực</a>
                 </div>
             </nav>
         </div>
@@ -40,8 +27,8 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="shop.html" class="nav-item nav-link">Shop</a>
+                        <a href="{{ route('shop.index') }}" class="nav-item nav-link active">Home</a>
+                        {{-- <a href="shop.html" class="nav-item nav-link">Shop</a> --}}
                         <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i
@@ -59,13 +46,6 @@
                             <span class="badge text-secondary border border-secondary rounded-circle"
                                 style="padding-bottom: 2px;">0</span>
                         </a>
-                        {{-- <a href="{{ route('cart.index') }}" class="btn px-0 ml-3">
-                            <i class="fas fa-shopping-cart text-primary" aria-hidden="true"></i>
-                            <span class="badge text-secondary border border-secondary rounded-circle"
-                                style="padding-bottom: 2px;">
-                                {{ count((array) session('cart')) }}</span>
-                        </a> --}}
-
                         <a href="{{ route('cart.index') }}" class="btn px-0 ml-3">
                             <i class="fas fa-shopping-cart text-primary" aria-hidden="true"></i>
                             <span class="badge text-secondary border border-secondary rounded-circle cart-quantity"

@@ -23,22 +23,11 @@ use Illuminate\Support\Facades\App;
 |
 */
 
-Route::get('/', function () {
-    return view('admin.layouts.master');
-});
-
-// Route::get('/shops', function () {
-//     return view('shop.layouts.master');
-// });
-Route::get('/a', function () {
-    return view('admin.layouts.blank');
-});
 //login & logout & quen mat khau
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/checkLogin', [AuthController::class, 'postLogin'])->name('checkLogin');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/forgot_password', [AuthController::class, 'forgot_password'])->name('forgot_password');
-// Route::post('/sendmail', [AuthController::class, 'sendMail'])->name('sendmail');
 Route::post('/post_forgot_password', [AuthController::class, 'post_forgot_password'])->name('post_forgot_password');
 
 
@@ -54,7 +43,7 @@ Route::prefix('/')->middleware(['auth', 'PreventBackHistory'])->group(function (
         Route::put('/update/{id}', [ProductController::class, 'update'])->name('products.update');
         Route::delete('/destroy/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
         Route::get('/search', [ProductController::class, 'search'])->name('products.search');
-        // Route::get('/xuatexcel', [ProductController::class, 'exportExcel'])->name('products.xuat');
+        Route::get('/exportProduct', [ProductController::class, 'exportProduct'])->name('products.exportProduct');
 
         // thùng rác
         Route::get('/trash', [ProductController::class, 'trash'])->name('products.trash');
@@ -74,6 +63,7 @@ Route::prefix('/')->middleware(['auth', 'PreventBackHistory'])->group(function (
         Route::delete('/destroy/{id}', [UserController::class, 'destroy'])->name('users.destroy');
         Route::get('/search', [UserController::class, 'search'])->name('users.search');
         Route::get('/show{id}', [UserController::class, 'show'])->name('users.show');
+        Route::get('/export', [UserController::class, 'export'])->name('users.export');
     });
 
     Route::resource('customers', CustomerController::class);
@@ -95,7 +85,7 @@ Route::prefix('/')->middleware(['auth', 'PreventBackHistory'])->group(function (
         Route::get('/show/{id}', [OrderController::class, 'show'])->name('orders.orderdetail');
         Route::delete('/destroy/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
         Route::get('/search', [OrderController::class, 'search'])->name('orders.search');
-        Route::get('/xuat', [OrderController::class, 'exportOrder'])->name('orders.xuat');
+        Route::get('/exportOrder', [OrderController::class, 'exportOrder'])->name('orders.export');
     });
 });
 
@@ -105,7 +95,7 @@ Route::prefix('shop1')->group(function () {
     Route::get('/', [ShopController::class, 'index'])->name('shop.index');
     Route::get('show/{slug}', [ShopController::class, 'show'])->name('shop.show');
     Route::get('/cart', [ShopController::class, 'cart'])->name('cart.index');
-    Route::get('/store/{id}', [ShopController::class, 'store'])->name('shop.store');
+    Route::get('/addtocart/{id}', [ShopController::class, 'addtocart'])->name('shop.addtocart');
     Route::get('/checkOuts', [ShopController::class, 'checkOuts'])->name('checkOuts');
     Route::patch('update-cart', [ShopController::class, 'update']);
     Route::delete('remove-from-cart', [ShopController::class, 'remove']);
@@ -118,22 +108,22 @@ Route::prefix('shop1')->group(function () {
     Route::post('/checkregister', [ShopController::class, 'checkregister'])->name('shop.checkregister');
     //đăng xuất shop
     Route::post('/logout', [ShopController::class, 'logout'])->name('shop.logout');
-    Route::post('/email', [ShopController::class, 'quenmatkhau'])->name('quenmatkhau');
+    Route::get('/shopsearch', [ShopController::class, 'shopsearch'])->name('shop.search');
 
 });
 
-Route::get('getMessage',function(){
-    $lang = session()->get('lang','en');
-    App::setLocale($lang);
-    echo '<br>'.__('messages.save_success');
-    echo '<br>'.__('messages.update_success');
-    echo '<br>'.__('messages.delete_success');
-    echo '<br>'.__('messages.welcome',[
-        'name' => 'phi'
-    ]);
-});
+// Route::get('getMessage', function () {
+//     $lang = session()->get('lang', 'en');
+//     App::setLocale($lang);
+//     echo '<br>' . __('messages.save_success');
+//     echo '<br>' . __('messages.update_success');
+//     echo '<br>' . __('messages.delete_success');
+//     echo '<br>' . __('messages.welcome', [
+//         'name' => 'phi'
+//     ]);
+// });
 
-Route::get('changeLanguage/{lang}',function($lang){
-    session()->put('lang', $lang);
-    return redirect('/getMessage');
-});
+// Route::get('changeLanguage/{lang}', function ($lang) {
+//     session()->put('lang', $lang);
+//     return redirect('/getMessage');
+// });

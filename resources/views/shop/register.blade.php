@@ -14,16 +14,22 @@
                                 <div class="col-md-6 mb-4">
 
                                     <div class="form-outline">
-                                        <input type="text" name="name" id="firstName" class="form-control form-control-lg" />
+                                        <input type="text" name="name" id="name" class="form-control form-control-lg" />
                                         <label class="form-label" for="firstName">Name</label>
+                                        @error('name')
+                                            <div style="color: red">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                 </div>
                                 <div class="col-md-6 mb-4 d-flex align-items-center">
 
                                     <div class="form-outline datepicker w-100">
-                                        <input type="date" name="address" class="form-control form-control-lg" id="birthdayDate" />
-                                        <label for="birthdayDate" class="form-label">Birthday</label>
+                                        <input type="text" name="address" class="form-control form-control-lg" id="address" />
+                                        <label for="address" class="form-label">Address</label>
+                                        @error('address')
+                                            <div style="color: red">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                 </div>
@@ -35,6 +41,9 @@
                                     <div class="form-outline">
                                         <input type="email" name="email" id="emailAddress" class="form-control form-control-lg" />
                                         <label class="form-label" for="emailAddress">Email</label>
+                                        @error('email')
+                                            <div style="color: red">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4 pb-2">
@@ -42,6 +51,9 @@
                                     <div class="form-outline">
                                         <input type="text" name="phone" id="phoneNumber" class="form-control form-control-lg" />
                                         <label class="form-label" for="phoneNumber">Phone Number</label>
+                                        @error('phone')
+                                            <div style="color: red">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -69,6 +81,20 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4 pb-2">
+
+                                    <div class="form-outline">
+                                        <input type="file" name="image" id="image"
+                                            class="form-control form-control-lg" />
+                                        <label class="form-label" for="image">Password</label>
+                                        @error('image')
+                                            <div style="color: red">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="mt-4 pt-2">
                                 <input class="btn btn-primary" type="submit" value="Submit" />
                                 <a class="btn btn-info" href="{{ route('shop.login') }}">Already have an account

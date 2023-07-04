@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Exports\OrderExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Orderdetail;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
@@ -13,9 +15,10 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $items = Order::paginate(5);
+        $items = Order::orderBy('order_date', 'desc')->paginate(8);
         return view('admin.orders.index', compact('items'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -47,7 +50,7 @@ class OrderController extends Controller
         $items = DB::table('orderdetail')
             ->join('orders', 'orderdetail.order_id', '=', 'orders.id')
             ->join('products', 'orderdetail.product_id', '=', 'products.id')
-            ->select('products.*', 'orderdetail.*', 'orders.id')
+            ->select('products.*', 'orderdetail.*', 'orders.order_date')
             ->join('customers', 'orders.customer_id', '=', 'customers.id')
             ->where('customers.name', '=', $order->name)
             ->where('customers.phone', '=', $order->phone)
@@ -55,6 +58,9 @@ class OrderController extends Controller
 
         return view('admin.orders.orderdetail', compact('items', 'order'));
     }
+
+
+
 
 
 
@@ -77,16 +83,7 @@ class OrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $order = new Order();
-        $order->name = $request->name;
-        $order->note = $request->note;
-        $order->address = $request->address;
-        $order->phone = $request->phone;
-        $order->quantity = $request->quantity;
-
-        alert()->success('Cập nhật sản phẩm thành công!');
-        $order->save();
-        return redirect()->route('orders.index');
+        //
     }
 
     /**
@@ -110,5 +107,9 @@ class OrderController extends Controller
             ->get();
         // dd($items);
         return view('admin.orders.index', compact('items'));
+    }
+    public function exportOrder()
+    {
+        return Excel::download(new OrderExport(), 'orders.xlsx');
     }
 }

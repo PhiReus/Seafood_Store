@@ -79,6 +79,6 @@
             @enderror
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
-        <a href="{{ route('products.index') }}" class="btn btn-primary">Quay lại</a>
+        <a href="{{ route('products.index') }}" class="btn btn-primary">Back</a>
     </form>
 @endsection

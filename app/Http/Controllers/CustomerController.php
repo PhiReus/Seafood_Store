@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Customer;
+use App\Http\Requests\UpdateCustomerRequest;
+
 
 
 
@@ -11,7 +13,7 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = Customer::paginate(6);
+        $customers = Customer::paginate(2);
         return view('admin.customers.index', compact('customers'));
     }
 
@@ -20,11 +22,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        $customers = Customer::get();
-        $param = [
-            'customers' => $customers
-        ];
-        return view('admin.customers.create', $param);
+       //
     }
 
     /**
@@ -32,37 +30,7 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|unique:customers', // Thêm quy tắc kiểm tra unique vào trường 'name' của bảng 'players'
-            'phone' => 'required',
-            'address' => 'required',
-            'email' => 'required',
-            'image' => 'required',
-        ], [
-            'name.required' => 'Vui lòng điền đầy đủ thông tin!',
-            'phone.unique' => 'Sản phẩm đã tồn tại.',
-            'address.required' => 'Vui lòng điền đầy đủ thông tin!',
-            'email.required' => 'Vui lòng điền đầy đủ thông tin!',
-            'image.required' => 'Vui lòng điền đầy đủ thông tin!',
-        ]);
-        $customer = new Customer();
-        $customer->name = $request->name;
-        $customer->phone = $request->phone;
-        $customer->address = $request->address;
-        $customer->email = $request->email;
-        $fieldName = 'image';
-        if ($request->hasFile($fieldName)) {
-            $fullFileNameOrigin = $request->file($fieldName)->getClientOriginalName();
-            $fileNameOrigin = pathinfo($fullFileNameOrigin, PATHINFO_FILENAME);
-            $extenshion = $request->file($fieldName)->getClientOriginalExtension();
-            $fileName = $fileNameOrigin . '-' . rand() . '_' . time() . '.' . $extenshion;
-            $path = 'storage/' . $request->file($fieldName)->storeAs('public/images', $fileName);
-            $path = str_replace('public/', '', $path);
-            $customer->image = $path;
-        }
-        alert()->success('Thêm sản phẩm thành công!');
-        $customer->save();
-        return redirect()->route('customers.index');
+        //
     }
 
     /**
@@ -70,11 +38,7 @@ class CustomerController extends Controller
      */
     public function show(string $id)
     {
-        $customershow = Customer::findOrFail($id);
-        $param = [
-            'customershow' => $customershow,
-        ];
-        return view('admin.customers.show', $param);
+       //
     }
 
     /**
@@ -92,22 +56,8 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateCustomerRequest $request, string $id)
     {
-        // dd($request->all());
-        $validated = $request->validate([
-            'name' => 'required',
-            'phone' => 'required',
-            'address' => 'required',
-            'email' => 'required',
-            'image' => 'required',
-        ], [
-            'name.required' => 'Vui lòng điền đầy đủ thông tin!',
-            'phone.unique' => 'Sản phẩm đã tồn tại.',
-            'address.required' => 'Vui lòng điền đầy đủ thông tin!',
-            'email.required' => 'Vui lòng điền đầy đủ thông tin!',
-            'image.required' => 'Vui lòng điền đầy đủ thông tin!',
-        ]);
 
         $customer = Customer::findOrFail($id);
         $customer->name = $request->name;
@@ -124,7 +74,7 @@ class CustomerController extends Controller
             $path = str_replace('public/', '', $path);
             $customer->image = $path;
         }
-        alert()->success('Cập nhật sản phẩm thành công!');
+        alert()->success('Cập nhật khách hàng thành công!');
         $customer->save();
         return redirect()->route('customers.index');
     }
@@ -136,7 +86,7 @@ class CustomerController extends Controller
     {
         $customer = Customer::find($id);
         $customer->delete();
-        alert()->success('Sản phẩm đã chuyễn vào thùng rác');
-        return redirect()->route('products.index');
+        alert()->success('Xóa khách hàng thành công');
+        return redirect()->route('customers.index');
     }
 }

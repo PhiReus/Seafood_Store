@@ -41,6 +41,6 @@
         <img src="{{ asset($customer->image) ?? asset('public/images/' . old('image', $customer->image)) }}" width="90px" height="90px" id="blah1" alt="">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
-    <a href="{{ route('customers.index') }}" class="btn btn-primary">Quay lại</a>
+    <a href="{{ route('customers.index') }}" class="btn btn-primary">Back</a>
 </form>
 @endsection

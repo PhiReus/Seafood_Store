@@ -1,7 +1,6 @@
 @extends('shop.layouts.master')
 @section('content')
-    @include('sweetalert::alert')
-
+@include('sweetalert::alert')
     <div class="container-fluid pt-5 pb-3">
         <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Featured
                 Products</span></h2>
@@ -20,13 +19,13 @@
                                         href="{{ url('shop1/show/' . $product->slug) }}"><i class="fa fa-search"></i></a>
                                 @else
                                     <div class="out-of-stock-label">
-                                        <p style="color: red;">Hết hàng</p>
+                                        <h4><strong><em style="color: red;">Hết hàng</em></strong></h4>
                                     </div>
                                 @endif
                             </div>
                         </div>
                         <div class="text-center py-4">
-                            <a class="h6 text-decoration-none text-truncate" href="">{{ $product->name }}</a>
+                            <a class="h6 text-decoration-none text-truncate" href="{{ url('shop1/show/' . $product->slug) }}">{{ $product->name }}</a>
                             <div class="d-flex align-items-center justify-content-center mt-2">
                                 <h5>{{ str_replace(',', '.', number_format(floatval($product->price))) . ' VND' }}</h5>
                             </div>
@@ -52,6 +51,11 @@
                 </div>
             @endforeach
         </div>
+        <div class="card-footer">
+            <nav class="float-right">
+                {{ $products->links() }}
+            </nav>
+        </div>
     </div>
     <style>
         .product.out-of-stock {
@@ -70,7 +74,7 @@
                 var productId = $(this).data('product-id');
                 // Gửi yêu cầu Ajax để thêm sản phẩm vào giỏ hàng
                 $.ajax({
-                    url: '{{ route('shop.store', ['id' => ':id']) }}'.replace(':id',
+                    url: '{{ route('shop.addtocart', ['id' => ':id']) }}'.replace(':id',
                         productId), // Đường dẫn tới route xử lý thêm sản phẩm vào giỏ hàng
                     method: 'GET',
                     success: function(response) {

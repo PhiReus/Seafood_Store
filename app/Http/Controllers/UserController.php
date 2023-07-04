@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Jobs\SendEmail;
 use App\Models\User;
 use App\Models\Group;
 use App\Http\Requests\StoreUser;
 use App\Http\Requests\UpdateUser;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -22,7 +23,7 @@ class UserController extends Controller
     {
         // dd(1);
         // $this->authorize('viewAny', User::class);
-        $users = User::all();
+        $users = User::paginate(2);
         $param = [
             'users' => $users
         ];
@@ -32,14 +33,7 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function showAdmin()
-    {
-        $admins = Group::get();
-        $param = [
-            'admins' => $admins,
-        ];
-        return view('users.admin', $param);
-    }
+
     public function create()
     {
         // $this->authorize('create', User::class);
@@ -77,10 +71,10 @@ class UserController extends Controller
         $user->save();
 
 
-        $data = [
-            'name' => $request->name,
-            'pass' => $request->password,
-        ];
+        // $data = [
+        //     'name' => $request->name,
+        //     'pass' => $request->password,
+        // ];
 
         $notification = [
             'message' => 'Đăng ký thành công!',
@@ -144,10 +138,10 @@ class UserController extends Controller
         $user->save();
 
 
-        $data = [
-            'name' => $request->name,
-            'pass' => $request->password,
-        ];
+        // $data = [
+        //     'name' => $request->name,
+        //     'pass' => $request->password,
+        // ];
 
         $notification = [
             'message' => 'Chỉnh sửa thành công!',
@@ -175,5 +169,9 @@ class UserController extends Controller
         }
         $users = User::where('name', 'LIKE', '%' . $search . '%')->paginate(2);
         return view('admin.users.index', compact('users'));
+    }
+    public function export()
+    {
+        return Excel::download(new UsersExport(), 'users.xlsx');
     }
 }

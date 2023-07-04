@@ -58,14 +58,13 @@
 
                                     <td class="align-middle"> {{ number_format($total) }} VNĐ </td>
                                     <td class="actions" data-th="">
-                                        <button class="btn btn-info btn-sm update-cart" data-id="{{ $id }}">
+                                        <button class="btn btn-outline-info btn-sm update-cart" data-id="{{ $id }}">
                                             <i class="fa fa-solid fa-recycle"></i>
                                         </button>
-                                        <button class="btn btn-danger btn-sm remove-from-cart"
+                                        <button class="btn btn-outline-danger btn-sm remove-from-cart"
                                             data-id="{{ $id }}"><i class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
-
                     </tbody>
                     @endforeach
                     @endif
@@ -86,20 +85,19 @@
                     <div class="border-bottom pb-2">
                         <div class="d-flex justify-content-between mb-3">
                             <h6>Tổng</h6>
-                            {{-- <h6>$ {{ $totalAll}}</h6> --}}
                             <h6>{{ number_format($totalAll) }} VNĐ</h6>
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">Phí vận chuyển</h6>
-                            <h6 class="font-weight-medium">10.000VNĐ</h6>
+                            <h6 class="font-weight-medium">15.000VNĐ</h6>
                         </div>
                     </div>
                     <div class="pt-2">
                         <div class="d-flex justify-content-between mt-2">
                             <h5>Tổng thu</h5>
-                            <h5>{{ number_format($totalAll + 10000) }} VNĐ </h5>
+                            <h5>{{ number_format($totalAll + 15000) }} VNĐ </h5>
                             @if ('cart')
-                                <a href="{{ route('checkOuts') }}" class="btn btn-danger pull-right"
+                                <a href="{{ route('checkOuts') }}" class="btn btn btn-outline-warning pull-right"
                                     onclick="return checkQuantity()">Thanh toán</a>
                             @endif
                         </div>
@@ -108,7 +106,6 @@
             </div>
         @endsection
         @section('scripts')
-            {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
             <script type="text/javascript">
                 $(".update-cart").click(function(e) {
                     e.preventDefault();

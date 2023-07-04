@@ -85,7 +85,7 @@
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-sm">Sign in</button>
-                            <a href="{{ route('products.index') }}" class="btn btn-info btn-sm">Quay lại</a>
+                            <a href="{{ route('products.index') }}" class="btn btn-info btn-sm">Back</a>
                         </div>
                     </form>
                 </div>

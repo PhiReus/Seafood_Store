@@ -12,7 +12,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(10);
+        $categories = Category::paginate(5);
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -41,7 +41,7 @@ class CategoryController extends Controller
         ]);
         $categories = new Category();
         $categories->name = $request->name;
-        alert()->success('Thêm sản phẩm thành công!');
+        alert()->success('Thêm loại sản phẩm thành công!');
         $categories->save();
         return redirect()->route('categories.index');
     }
@@ -79,7 +79,7 @@ class CategoryController extends Controller
 
         $category = Category::findOrFail($id);
         $category->name = $request->name;
-        alert()->success('Cập nhật sản phẩm thành công!');
+        alert()->success('Cập nhật loại sản phẩm thành công!');
         $category->save();
         return redirect()->route('categories.index');
     }
@@ -91,7 +91,7 @@ class CategoryController extends Controller
     {
         $category = Category::find($id);
         $category->delete();
-        alert()->success('Sản phẩm đã chuyễn vào thùng rác');
+        alert()->success('Xóa loại sản phẩm thành công');
         return redirect()->route('categories.index');
     }
 }

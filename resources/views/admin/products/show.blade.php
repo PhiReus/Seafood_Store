@@ -34,6 +34,6 @@
         </tbody>
     </table>
     <button class="btn btn-dark" onclick="window.history.back()">
-        <i class="fa fa-arrow-left mr-2"></i> Quay lại
+        <i class="fa fa-arrow-left mr-2"></i> Back
     </button>
 @endsection

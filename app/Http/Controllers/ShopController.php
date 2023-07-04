@@ -11,6 +11,7 @@ use App\Models\Customer;
 use App\Models\OrderDetail;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreRegisterRequest;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
@@ -18,8 +19,7 @@ class ShopController extends Controller
 {
     public function index()
     {
-        // $products = Product::where('status', 1)->get();
-        $products = Product::all();
+        $products = Product::paginate(12);
 
         $param = [
             'products' => $products
@@ -29,7 +29,6 @@ class ShopController extends Controller
     public function show($slug)
     {
         $product = Product::where('slug', $slug)->first();
-
         $category = Category::get();
         $param = [
             'product' => $product,
@@ -37,7 +36,16 @@ class ShopController extends Controller
         ];
         return view('shop.detail', $param);
     }
-    public function store($id)
+    public function cart()
+    {
+        $cart = session()->get('cart', []);
+        $param = [
+            'cart' => $cart,
+        ];
+
+        return view('shop.cart', $param);
+    }
+    public function addtocart($id)
     {
         $product = Product::find($id);
 
@@ -65,15 +73,7 @@ class ShopController extends Controller
 
         return response()->json(['cartQuantity' => $cartQuantity]);
     }
-    public function cart()
-    {
-        $cart = session()->get('cart', []);
-        $param = [
-            'cart' => $cart,
-        ];
 
-        return view('shop.cart', $param);
-    }
 
     public function update(Request $request)
     {
@@ -94,7 +94,7 @@ class ShopController extends Controller
                 unset($cart[$request->id]);
                 session()->put('cart', $cart);
             }
-            alert()->success('Xóa Đơn Hàng Thành Công!');
+            alert()->success('Xóa mặt hàng Thành Công!');
         }
     }
 
@@ -161,14 +161,6 @@ class ShopController extends Controller
     }
     public function checkregister(StoreRegisterRequest $request)
     {
-        $validated = $request->validate([
-            'email' => 'required|unique:customers|email',
-            'password' => 'required|min:6',
-        ]);
-
-        $notifications = [
-            'ok' => 'ok',
-        ];
         $notification = [
             'message' => 'error',
         ];
@@ -178,6 +170,16 @@ class ShopController extends Controller
         $customer->address =  $request->address;
         $customer->email = $request->email;
         $customer->password = bcrypt($request->password);
+        $fieldName = 'image';
+        if ($request->hasFile($fieldName)) {
+            $fullFileNameOrigin = $request->file($fieldName)->getClientOriginalName();
+            $fileNameOrigin = pathinfo($fullFileNameOrigin, PATHINFO_FILENAME);
+            $extenshion = $request->file($fieldName)->getClientOriginalExtension();
+            $fileName = $fileNameOrigin . '-' . rand() . '_' . time() . '.' . $extenshion;
+            $path = 'storage/' . $request->file($fieldName)->storeAs('public/images', $fileName);
+            $path = str_replace('public/', '', $path);
+            $customer->image = $path;
+        }
 
         if ($request->password == $request->confirmpassword) {
             alert()->success('Đăng ký tài khoản thành công!');
@@ -196,9 +198,6 @@ class ShopController extends Controller
     public function checklogin(Request $request)
     {
         // dd(1);
-        $notification = [
-            'message' => 'error',
-        ];
         $arr = [
             'email' => $request->email,
             'password' => $request->password
@@ -222,5 +221,14 @@ class ShopController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('shop.index');
+    }
+    public function shopsearch(Request $request)
+    {
+        $search = $request->input('search');
+        if (!$search) {
+            return redirect()->route('shop.home');
+        }
+        $products = Product::where('name', 'LIKE', '%' . $search . '%')->paginate(2);
+        return view('shop.home', compact('products'));
     }
 }

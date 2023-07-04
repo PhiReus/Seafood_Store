@@ -14,8 +14,6 @@
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My
                         Account</button>
                     <div class="dropdown-menu dropdown-menu-right justify-content-center">
-                        {{-- <a href="{{ route('shop.login') }}" class="dropdown-item">Sign in</a>
-                        <a href="{{ route('shop.login') }}" class="dropdown-item">Sign up</a> --}}
                         <button class="dropdown-item" type="button">Sign in</button>
                         <button class="dropdown-item" type="button">Sign up</button>
                     </div>
@@ -55,19 +53,19 @@
     </div>
     <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
         <div class="col-lg-4">
-            <a href="" class="text-decoration-none">
+            <a href="{{ route('shop.index') }}" class="text-decoration-none">
                 <span class="h1 text-uppercase text-primary bg-dark px-2">PHIREUS</span>
                 <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">SEAFOOD</span>
             </a>
         </div>
         <div class="col-lg-4 col-6 text-left">
-            <form action="">
+            <form action="{{ route('shop.search') }}" method="GET">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for products">
+                    <input type="text" name="search" class="form-control" placeholder="Search for products">
                     <div class="input-group-append">
-                        <span class="input-group-text bg-transparent text-primary">
+                        <button class="input-group-text bg-transparent text-primary" type="submit">
                             <i class="fa fa-search"></i>
-                        </span>
+                        </button>
                     </div>
                 </div>
             </form>

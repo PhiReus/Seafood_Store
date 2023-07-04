@@ -55,9 +55,9 @@
                                                     </div>
                                             </div>
                                             <div class="form-actions">
-                                                <button class="btn btn-success" type="submit">Duyệt</button>
+                                                <button class="btn btn-success" type="submit">Browser</button>
                                                 <a href="{{ route('groups.index') }}" class="btn btn-danger"
-                                                    type="submit">Hủy</a>
+                                                    type="submit">Cancel</a>
                                             </div>
                                         </div>
                                     </div>

@@ -20,7 +20,7 @@
                                 method="POST">
                                 @csrf
                                 <div class="form-group has-warning">
-                                    <label class="col-lg-2">Tên Thể Loại</label>
+                                    <label class="col-lg-2">Category Name</label>
                                     <div class="col-lg-8">
                                         <input type="text" value="{{ old('name') }}" name="name" placeholder=""
                                             class=" @error('name') is-invalid @enderror form-control ">
@@ -32,9 +32,9 @@
                                 <br><br>
                                 <div class="form-group">
                                     <div class="col-lg-offset-2 col-lg-6">
-                                        <button class="btn btn-primary" type="submit">Thêm Thể Loại</button>
+                                        <button class="btn btn-primary" type="submit">Add Genre</button>
                                         <a href="{{ route('groups.index') }}" class="btn btn-danger"
-                                            type="submit">Hủy</a>
+                                            type="submit">Cancel</a>
                                     </div>
                                 </div>
                             </form>

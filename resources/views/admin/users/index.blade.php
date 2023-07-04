@@ -20,7 +20,8 @@
                         <header class="page-title-bar">
                             <h1 class="offset-4">Nhân sự</h1>
                             @if (Auth::user()->hasPermission('User_create'))
-                                <a href="{{ route('users.create') }}" class="btn btn-info">Đăng ký tài khoản nhân sự</a>
+                                <a href="{{ route('users.create') }}" class="btn btn-info">Register for an HR account</a>
+                                <a href="{{ route('users.export') }}" class="btn btn-success">Export Excel</a>
                             @endif
                         </header>
                         <hr>
@@ -38,12 +39,12 @@
                                         }}'>
                                 <thead>
                                     <tr>
-                                        <th data-breakpoints="xs">STT</th>
-                                        <th>Avatar</th>
-                                        <th>Tên</th>
-                                        <th>Phone</th>
-                                        <th>Chức vụ</th>
-                                        <th data-breakpoints="xs">Tùy Chỉnh</th>
+                                        <th data-breakpoints="xs">ID</th>
+                                        <th>AVATAR</th>
+                                        <th>NAME</th>
+                                        <th>PHONE</th>
+                                        <th>POSITION</th>
+                                        <th data-breakpoints="xs">ACTION</th>
                                     </tr>
                                 </thead>
                                 <tbody id="myTable">
@@ -58,11 +59,11 @@
                                             <td>
                                                 @if (Auth::user()->hasPermission('User_update'))
                                                     <a href="{{ route('users.edit', $user->id) }}"
-                                                        class="btn btn-warning">Sửa</a>
+                                                        class="btn btn-warning">Edit</a>
                                                 @endif
                                                 @if (Auth::user()->hasPermission('User_forceDelete'))
                                                     <a data-href="{{ route('users.destroy', $user->id) }}"
-                                                        id="{{ $user->id }}" class="btn btn-info deleteIcon">Xóa</i></a>
+                                                        id="{{ $user->id }}" class="btn btn-info deleteIcon">Delete</i></a>
                                                 @endif
                                             </td>
                                         </tr>
@@ -71,6 +72,11 @@
                             </table>
                         </div>
                     </div>
+                </div>
+                <div class="card-footer">
+                    <nav class="float-right">
+                        {{ $users->links() }}
+                    </nav>
                 </div>
             </section>
             <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>

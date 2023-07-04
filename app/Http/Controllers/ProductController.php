@@ -7,6 +7,8 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\StroreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Exports\ProductExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Http\Request;
 
@@ -170,5 +172,9 @@ class ProductController extends Controller
             toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
             return redirect()->route('products.index');
         }
+    }
+    public function exportProduct()
+    {
+        return Excel::download(new ProductExport(), 'products.xlsx');
     }
 }

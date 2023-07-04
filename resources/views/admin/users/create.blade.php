@@ -25,7 +25,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="tf1">Mật Khẩu<abbr name="Trường bắt buộc">*</abbr></label>
+                                            <label for="tf1">Pass Word<abbr name="Trường bắt buộc">*</abbr></label>
                                             <input name="password" type="text" class="form-control"
                                                 value="{{ old('password') }}">
                                             <small id="" class="form-text text-muted"></small>
@@ -36,7 +36,7 @@
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label for="tf1">Họ Và Tên<abbr name="Trường bắt buộc">*</abbr></label>
+                                            <label for="tf1">Full Name<abbr name="Trường bắt buộc">*</abbr></label>
                                             <input name="name" type="text" class="form-control"
                                                 value="{{ old('name') }}">
                                             <small id="" class="form-text text-muted"></small>
@@ -45,7 +45,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="tf1">Số Điện Thoại<abbr name="Trường bắt buộc">*</abbr></label>
+                                            <label for="tf1">Phone<abbr name="Trường bắt buộc">*</abbr></label>
                                             <input name="phone" type="number" class="form-control"
                                                 value="{{ old('phone') }}">
                                             <small id="" class="form-text text-muted"></small>
@@ -56,7 +56,7 @@
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label for="tf1">Ngày sinh<abbr name="Trường bắt buộc">*</abbr></label>
+                                            <label for="tf1">Date<abbr name="Trường bắt buộc">*</abbr></label>
                                             <input name="birthday" type="date" class="form-control"
                                                 value="{{ old('birthday') }}">
                                             <small id="" class="form-text text-muted"></small>
@@ -65,7 +65,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="tf1">Địa chỉ<abbr name="Trường bắt buộc">*</abbr></label>
+                                            <label for="tf1">Address<abbr name="Trường bắt buộc">*</abbr></label>
                                             <input name="address" type="text" class="form-control"
                                                 value="{{ old('address') }}">
                                             <small id="" class="form-text text-muted"></small>
@@ -76,7 +76,7 @@
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label class="control-label" for="flatpickr01">Chức Vụ<abbr
+                                            <label class="control-label" for="flatpickr01">Position<abbr
                                                 name="Trường bắt buộc">*</abbr></label>
                                         <select name="group_id" id="" class="form-control">
                                             <option value="">--Vui lòng chọn--</option>
@@ -90,7 +90,7 @@
                                         @endif
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label class="control-label" for="flatpickr01">Giới Tính<abbr
+                                            <label class="control-label" for="flatpickr01">Gender<abbr
                                                 name="Trường bắt buộc">*</abbr></label>
                                         <select name="gender" id="" class="form-control">
                                             <option value="">--Vui lòng chọn--</option>
@@ -107,14 +107,14 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputPassword3">IMAGE</label>
+                                        <label for="inputPassword3">Image</label>
                                         <input type="file" class="form-control" name="image">
                                         @error('image')
                                         <div class="text text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Sign in</button>
-                                    <a class="btn btn-danger" href="{{ route('users.index') }}">Hủy bỏ</a>
+                                    <button type="submit" class="btn btn-primary">Register</button>
+                                    <a class="btn btn-danger" href="{{ route('users.index') }}">Cancel</a>
                                 </form>
                             </div>
                         </div>

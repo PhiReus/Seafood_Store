@@ -4,7 +4,8 @@
 
     <main class="page-content">
         <div class="container">
-            <a href="{{ route('products.create') }}" class="btn btn-primary">Thêm mới</a>
+            <a href="{{ route('products.create') }}" class="btn btn-primary">Add new</a>
+            <a href="{{ route('products.exportProduct') }}" class="btn btn-success">Export to Excel</a>
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
@@ -13,7 +14,7 @@
                         <th scope="col">PRICE</th>
                         <th scope="col">IMAGE</th>
 
-                        <th adta-breakpoints="xs">Quản lí</th>
+                        <th adta-breakpoints="xs">ACTION</th>
                     </tr>
                 </thead>
                 <tbody>
