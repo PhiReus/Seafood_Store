@@ -22,8 +22,8 @@ class UserController extends Controller
     public function index()
     {
         // dd(1);
-        // $this->authorize('viewAny', User::class);
-        $users = User::paginate(2);
+        $this->authorize('viewAny', User::class);
+        $users = User::paginate(4);
         $param = [
             'users' => $users
         ];
@@ -36,7 +36,7 @@ class UserController extends Controller
 
     public function create()
     {
-        // $this->authorize('create', User::class);
+        $this->authorize('create', User::class);
         $groups = Group::all();
         $param = [
             'groups' => $groups
@@ -101,8 +101,8 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        // $this->authorize('view', User::class);
         $user = User::find($id);
+        $this->authorize('update', $user);
         $groups = Group::get();
         $param = [
             'user' => $user,
@@ -157,6 +157,7 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         $user = User::findOrFail($id);
+        $this->authorize('delete', $user);
         $user->Delete();
         alert()->success('Xóa thành công!');
         return redirect()->route('users.index');

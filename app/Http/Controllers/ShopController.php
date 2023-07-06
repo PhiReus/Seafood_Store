@@ -226,9 +226,9 @@ class ShopController extends Controller
     {
         $search = $request->input('search');
         if (!$search) {
-            return redirect()->route('shop.home');
+            return redirect()->route('shop.index');
         }
-        $products = Product::where('name', 'LIKE', '%' . $search . '%')->paginate(2);
+        $products = Product::where('name', 'LIKE', '%' . $search . '%')->paginate(20);
         return view('shop.home', compact('products'));
     }
 }

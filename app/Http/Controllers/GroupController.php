@@ -59,8 +59,8 @@ class GroupController extends Controller
      */
     public function edit(string $id)
     {
-        $this->authorize('update', Group::class);
         $group = Group::find($id);
+        $this->authorize('update', $group);
         return view('admin.groups.edit', compact('group'));
     }
 
@@ -87,6 +87,7 @@ class GroupController extends Controller
     public function destroy(string $id)
     {
         $group = Group::find($id);
+        $this->authorize('delete', $group);
         $group->delete();
         alert()->success('Xóa nhân viên thành công!');
 

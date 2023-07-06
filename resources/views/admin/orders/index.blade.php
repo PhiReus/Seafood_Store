@@ -12,7 +12,6 @@
                         <th scope="col">CUSTOMER NAME</th>
                         <th scope="col">ADDRESS</th>
                         <th scope="col">PHONE</th>
-                        {{-- <th scope="col">ORDER DATE</th> --}}
                         <th scope="col">ACTION</th>
                     </tr>
                 </thead>
@@ -28,7 +27,6 @@
                             <td>{{ $item->customer->name }}</td>
                             <td>{{ $item->customer->address }}</td>
                             <td>{{ $item->customer->phone }}</td>
-                            {{-- <td>{{ $item->order_date }}</td> --}}
                             <td>
                                 <form action="{{ route('orders.destroy', $item->id) }}" method="POST">
                                     @method('DELETE')

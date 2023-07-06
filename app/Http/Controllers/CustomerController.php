@@ -47,6 +47,7 @@ class CustomerController extends Controller
     public function edit(string $id)
     {
         $customer = Customer::find($id);
+        $this->authorize('update',$customer);
         $param = [
             'customer' => $customer
         ];
@@ -85,6 +86,7 @@ class CustomerController extends Controller
     public function destroy(string $id)
     {
         $customer = Customer::find($id);
+        $this->authorize('delete',$customer);
         $customer->delete();
         alert()->success('Xóa khách hàng thành công');
         return redirect()->route('customers.index');

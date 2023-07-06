@@ -25,7 +25,7 @@
                             </div>
                         </div>
                         <div class="text-center py-4">
-                            <a class="h6 text-decoration-none text-truncate" href="{{ url('shop1/show/' . $product->slug) }}">{{ $product->name }}</a>
+                            <a class="h6 text-decoration-none text-truncate" href="">{{ $product->name }}</a>
                             <div class="d-flex align-items-center justify-content-center mt-2">
                                 <h5>{{ str_replace(',', '.', number_format(floatval($product->price))) . ' VND' }}</h5>
                             </div>

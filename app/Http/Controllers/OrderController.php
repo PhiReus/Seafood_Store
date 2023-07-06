@@ -15,7 +15,9 @@ class OrderController extends Controller
 {
     public function index()
     {
+        $this->authorize('viewAny',Order::class);
         $items = Order::orderBy('order_date', 'desc')->paginate(8);
+        // dd($items);
         return view('admin.orders.index', compact('items'));
     }
 
@@ -41,6 +43,8 @@ class OrderController extends Controller
      */
     public function show(string $id)
     {
+        $order = Order::find($id);
+        $this->authorize('view', $order);
         $order = DB::table('orders')
             ->join('customers', 'orders.customer_id', '=', 'customers.id')
             ->select('orders.*', 'customers.name', 'customers.phone', 'orders.order_date')
@@ -58,13 +62,6 @@ class OrderController extends Controller
 
         return view('admin.orders.orderdetail', compact('items', 'order'));
     }
-
-
-
-
-
-
-
 
     /**
      * Show the form for editing the specified resource.
@@ -92,6 +89,8 @@ class OrderController extends Controller
     public function destroy(string $id)
     {
         $order = Order::find($id);
+        $this->authorize('update', $order);
+
         $order->delete();
         alert()->success('Xóa đơn hàng thành công');
         return redirect()->route('orders.index');

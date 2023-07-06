@@ -28,6 +28,7 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Product::class);
         $categories = Category::get();
         $param = [
             'categories' => $categories
@@ -70,10 +71,8 @@ class ProductController extends Controller
     public function show(string $id)
     {
         $productshow = Product::findOrFail($id);
-        // $relatedProducts = Product::where('name', $productshow->name)->get();
         $param = [
             'productshow' => $productshow,
-            // 'relatedProducts' => $relatedProducts
         ];
         return view('admin.products.show', $param);
     }
@@ -84,6 +83,7 @@ class ProductController extends Controller
     public function edit(string $id)
     {
         $product = Product::find($id);
+        $this->authorize('update', $product);
         $categories = Category::all();
         $param = [
             'product' => $product,
@@ -97,6 +97,7 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, string $id)
     {
+
         $product = Product::findOrFail($id);
         $product->name = $request->name;
         $product->slug = $request->slug;
@@ -126,6 +127,7 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         $product = Product::find($id);
+        $this->authorize('delete', $product);
         $product->delete();
         alert()->success('Sản phẩm đã chuyễn vào thùng rác');
         return redirect()->route('products.index');

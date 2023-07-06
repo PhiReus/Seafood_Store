@@ -21,6 +21,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        $this->authorize('create',Category::class);
         $categories = Category::get();
         $param = [
             'categories' => $categories
@@ -60,6 +61,8 @@ class CategoryController extends Controller
     public function edit(string $id)
     {
         $category = Category::find($id);
+        $this->authorize('update',$category);
+
         $param = [
             'category' => $category
         ];
@@ -90,6 +93,7 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         $category = Category::find($id);
+        $this->authorize('delete',$category);
         $category->delete();
         alert()->success('Xóa loại sản phẩm thành công');
         return redirect()->route('categories.index');
