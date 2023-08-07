@@ -41,5 +41,15 @@ class UserController extends Controller
             "data"    => $user
         ],201);
     }
+    public function destroy(string $id)
+    {
+        $user = User::findOrFail($id);
+        $user->Delete();
+        return response()->json([
+            "success" => true,
+            "message" => "Xoa thanh cong",
+            "data"    => $user
+        ],200);
+    }
 
 }

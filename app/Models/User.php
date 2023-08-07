@@ -2,28 +2,30 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-
-use App\Traits\HasPermissions;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use App\Traits\HasPermissions;
 
-class User extends Authenticatable
-{use Notifiable;
+
+class User extends Authenticatable implements JWTSubject
+{
     use HasApiTokens, HasFactory, Notifiable,HasPermissions;
-//     protected $fillable =
-//     ['name',
-//     'address',
-//     'phone',
-//     'image',
-//     'gender',
-//     'birthday',
-//     'email',
-//     'password',
-//     'position_id',
-// ];
+    protected $fillable =
+    ['name',
+    'address',
+    'phone',
+    'image',
+    'gender',
+    'birthday',
+    'email',
+    'password',
+    'position_id',
+    'group_id'
+];
 protected $table = 'users';
     /**
      * The attributes that are mass assignable.
@@ -55,6 +57,20 @@ protected $table = 'users';
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
     public function group()
     {
         return $this->belongsTo(Group::class, 'group_id', 'id');
